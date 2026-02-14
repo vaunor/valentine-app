@@ -1,7 +1,6 @@
 // src/LoveStepsApp.jsx
 import React, { useState, useEffect } from 'react'
 
-// Если вы поместили картинку в public/final.jpg, используйте этот путь:
 const FINAL_IMAGE_PUBLIC_PATH = '/final.jpg'
 
 const messages = [
@@ -37,9 +36,7 @@ export default function LoveStepsApp() {
     if (navigator.share) {
       try {
         await navigator.share({ title: 'С Днём Валентина', text, url })
-      } catch (e) {
-        // отмена пользователем
-      }
+      } catch (e) {}
     } else {
       try {
         await navigator.clipboard.writeText(url)
@@ -56,19 +53,21 @@ export default function LoveStepsApp() {
     link.download = 'our_moments_valentine.jpg'
     document.body.appendChild(link)
     link.click()
-    link.remove()
+    document.body.removeChild(link)
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'linear-gradient(180deg,#fff6fb,#ffeef3)' }}>
-      <div className="w-full max-w-3xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden" style={{ border: '1px solid rgba(255,200,220,0.6)' }}>
+      <div className="w-full max-w-3xl bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden text-gray-900" style={{ border: '1px solid rgba(255,200,220,0.6)' }}>
         <header className="py-8 text-center px-6">
           <div className="text-3xl font-cursive" style={{ fontFamily: '"Great Vibes", cursive' }}>
             <span style={{ fontSize: 34 }}>❤️</span>
             <span className="mx-3">Наши моменты</span>
             <span style={{ fontSize: 34 }}>❤️</span>
           </div>
-          <p className="mt-2 text-sm text-gray-600">Нажимай «Далее» и читай мои послания — до финального сюрприза ✨</p>
+          <p className="mt-2 text-sm text-gray-800">
+            Нажимай «Далее» и читай мои послания — до финального сюрприза ✨
+          </p>
         </header>
 
         <main className="px-6 pb-8">
@@ -76,13 +75,15 @@ export default function LoveStepsApp() {
             <div key={animateKey} className="w-full bg-gradient-to-b from-white to-pink-50 rounded-2xl p-8 transition-transform duration-500 ease-in-out transform hover:scale-[1.01]">
               {step < messages.length - 1 ? (
                 <div className="text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-rose-800 mb-4"  style={{ minHeight: 80, textShadow: '1px 1px 3px rgba(255,255,255,0.8)' }}>{messages[step]}</div>
+                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-rose-800 mb-4" style={{ minHeight: 80, textShadow: '1px 1px 3px rgba(255,255,255,0.8)' }}>
+                    {messages[step]}
+                  </div>
                   <div className="flex justify-center gap-3 mt-4">
                     <Heart size={28} delay={0} />
                     <Heart size={22} delay={200} />
                     <Heart size={18} delay={400} />
                   </div>
-                  <div className="mt-6 text-sm text-gray-500">Шаг {step + 1} из {messages.length}</div>
+                  <div className="mt-6 text-sm text-gray-700">Шаг {step + 1} из {messages.length}</div>
                 </div>
               ) : (
                 <div className="text-center">
@@ -90,7 +91,7 @@ export default function LoveStepsApp() {
                     <img src={FINAL_IMAGE_PUBLIC_PATH} alt="Наши моменты" className="w-full h-auto object-cover" />
                   </div>
                   <h2 className="mt-4 text-2xl font-bold text-rose-900">С Днём святого Валентина ❤️</h2>
-                  <p className="mt-2 text-gray-600">Спасибо, что ты — моя лучшая история.</p>
+                  <p className="mt-2 text-gray-800">Спасибо, что ты — моя лучшая история.</p>
                   <FinalHearts />
                 </div>
               )}
@@ -109,7 +110,7 @@ export default function LoveStepsApp() {
               )}
             </div>
 
-            <div className="mt-4 text-xs text-gray-400">Создано с любовью 💖 — открой это сообщение на телефоне для лучшего эффекта</div>
+            <div className="mt-4 text-xs text-gray-500">Создано с любовью 💖 — открой это сообщение на телефоне для лучшего эффекта</div>
           </div>
         </main>
       </div>
