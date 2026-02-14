@@ -46,10 +46,10 @@ export default function LoveStepsApp() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 relative" style={{ background: 'linear-gradient(180deg,#fff6fb,#ffeef3)' }}>
-      {/* Размытый фон, декоративный */}
+      {/* Декоративный размытый фон */}
       <div className="absolute inset-0 bg-white/80 backdrop-blur-sm pointer-events-none"></div>
 
-      {/* Контент поверх непрозрачного фона */}
+      {/* Контент на непрозрачном белом фоне */}
       <div className="relative w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden bg-white border border-pink-200">
         <header className="py-8 text-center px-6">
           <div className="text-3xl font-cursive" style={{ fontFamily: '"Great Vibes", cursive' }}>
@@ -119,27 +119,23 @@ export default function LoveStepsApp() {
   )
 }
 
-function Heart({ size = 24, delay = 0 }){
+function Heart({ size = 24, delay = 0 }) {
   const style = { width: size, height: size, transition: 'transform 300ms' }
   return (
     <div className={`heart heart-anim`} style={{ ...style, animationDelay: `${delay}ms` }} aria-hidden>
-      <svg viewBox="0 0 24 24" width={size} height={size} xmlns="http://www.w3.org/2000/svg" fill="#ff6b81">
+      <svg viewBox="0 0 24 24" width={size} height={size} fill="#ff6b81" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 21s-7.333-4.667-9.2-7.133C.9 10.6 3.2 6 7 6c1.8 0 3.2 1 4 2.4C12.8 7 14.2 6 16 6c3.8 0 6.1 4.6 4.2 7.867C19.333 16.333 12 21 12 21z" />
       </svg>
     </div>
   )
 }
 
-function FinalHearts(){
+function FinalHearts() {
   const hearts = Array.from({ length: 12 }).map((_, i) => ({ id: i }))
-  return (
-    <div aria-hidden>
-      {hearts.map(h => <FloatingHeart key={h.id} index={h.id} />)}
-    </div>
-  )
+  return <div aria-hidden>{hearts.map(h => <FloatingHeart key={h.id} index={h.id} />)}</div>
 }
 
-function FloatingHeart({ index }){
+function FloatingHeart({ index }) {
   const left = 10 + (index * 13) % 80
   const delay = (index * 300) % 3000
   const duration = 4000 + (index * 300) % 3000
