@@ -12,7 +12,7 @@ const messages = [
   'Спасибо, что смотришь на меня таким тёплым взглядом ❤️',
   'Ты — моя поддержка, смех и уют в одном лице ☕️',
   'Я ценю каждый наш момент — большой и маленький 🕰️',
-  'Сегодня я хочу сказать: люблю тебя сильнее, чем вчера 💘',
+  'Сегодня я хочу сказать: люблю тебя сильнее, чем вчера зайка💘',
   'А теперь — сюрприз! С Днём святого Валентина! Люблю тебя моя зая 💝'
 ]
 
@@ -76,7 +76,7 @@ export default function LoveStepsApp() {
             <div key={animateKey} className="w-full bg-gradient-to-b from-white to-pink-50 rounded-2xl p-8 transition-transform duration-500 ease-in-out transform hover:scale-[1.01]">
               {step < messages.length - 1 ? (
                 <div className="text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-rose-800 mb-4" style={{ minHeight: 80 }}>{messages[step]}</div>
+                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-rose-800 mb-4"  style={{ minHeight: 80, textShadow: '1px 1px 3px rgba(255,255,255,0.8)' }}>{messages[step]}</div>
                   <div className="flex justify-center gap-3 mt-4">
                     <Heart size={28} delay={0} />
                     <Heart size={22} delay={200} />
