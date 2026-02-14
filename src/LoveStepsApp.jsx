@@ -34,16 +34,10 @@ export default function LoveStepsApp() {
     const url = window.location.href
     const text = 'Смотри — это для тебя 💖'
     if (navigator.share) {
-      try {
-        await navigator.share({ title: 'С Днём Валентина', text, url })
-      } catch (e) {}
+      try { await navigator.share({ title: 'С Днём Валентина', text, url }) } catch (e) {}
     } else {
-      try {
-        await navigator.clipboard.writeText(url)
-        alert('Ссылка скопирована в буфер обмена — можешь отправить её вручную')
-      } catch (e) {
-        alert('Не получилось скопировать ссылку. Можешь поделиться адресом страницы вручную.')
-      }
+      try { await navigator.clipboard.writeText(url); alert('Ссылка скопирована') } 
+      catch (e) { alert('Не получилось скопировать ссылку') }
     }
   }
 
@@ -57,38 +51,37 @@ export default function LoveStepsApp() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'linear-gradient(180deg,#fff6fb,#ffeef3)' }}>
-      <div className="w-full max-w-3xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden" style={{ border: '1px solid rgba(255,200,220,0.6)' }}>
+    <div className="min-h-screen flex items-center justify-center p-6 relative" style={{ background: 'linear-gradient(180deg,#fff6fb,#ffeef3)' }}>
+      {/* Размытый фон */}
+      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+
+      {/* Основной контент поверх blur */}
+      <div className="relative w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden bg-white border border-pink-200">
         <header className="py-8 text-center px-6">
           <div className="text-3xl font-cursive" style={{ fontFamily: '"Great Vibes", cursive' }}>
             <span style={{ fontSize: 34 }}>❤️</span>
             <span className="mx-3">Наши моменты</span>
             <span style={{ fontSize: 34 }}>❤️</span>
           </div>
-          {/* Обёртка для текста с непрозрачным фоном */}
-          <div className="mt-2 inline-block px-4 py-2 rounded-xl bg-white/95">
-            <p className="text-gray-900 text-sm">
-              Нажимай «Далее» и читай мои послания — до финального сюрприза ✨
-            </p>
-          </div>
+          <p className="mt-2 text-gray-900 text-sm inline-block px-4 py-2 rounded-xl bg-white">
+            Нажимай «Далее» и читай мои послания — до финального сюрприза ✨
+          </p>
         </header>
 
         <main className="px-6 pb-8">
           <div className="relative flex flex-col items-center">
-            <div key={animateKey} className="w-full bg-gradient-to-b from-white to-pink-50 rounded-2xl p-8 transition-transform duration-500 ease-in-out transform hover:scale-[1.01]">
+            <div key={animateKey} className="w-full bg-white rounded-2xl p-8 transition-transform duration-500 ease-in-out transform hover:scale-[1.01]">
               {step < messages.length - 1 ? (
-                <div className="text-center">
-                  <div className="inline-block px-4 py-4 rounded-xl bg-white/95">
-                    <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-rose-800 mb-4" style={{ minHeight: 80, textShadow: '1px 1px 3px rgba(255,255,255,0.8)' }}>
-                      {messages[step]}
-                    </div>
-                    <div className="flex justify-center gap-3 mt-4">
-                      <Heart size={28} delay={0} />
-                      <Heart size={22} delay={200} />
-                      <Heart size={18} delay={400} />
-                    </div>
-                    <div className="mt-6 text-sm text-gray-900">Шаг {step + 1} из {messages.length}</div>
+                <div className="text-center inline-block bg-white p-4 rounded-xl">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-rose-800 mb-4" style={{ minHeight: 80 }}>
+                    {messages[step]}
                   </div>
+                  <div className="flex justify-center gap-3 mt-4">
+                    <Heart size={28} delay={0} />
+                    <Heart size={22} delay={200} />
+                    <Heart size={18} delay={400} />
+                  </div>
+                  <div className="mt-6 text-sm text-gray-900">Шаг {step + 1} из {messages.length}</div>
                 </div>
               ) : (
                 <div className="text-center">
