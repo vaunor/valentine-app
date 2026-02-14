@@ -19,25 +19,19 @@ export default function LoveStepsApp() {
   const [step, setStep] = useState(0)
   const [animateKey, setAnimateKey] = useState(0)
 
-  useEffect(() => {
-    setAnimateKey(k => k + 1)
-  }, [step])
+  useEffect(() => setAnimateKey(k => k + 1), [step])
 
-  function nextStep() {
-    setStep(s => Math.min(s + 1, messages.length - 1))
-  }
-  function prevStep() {
-    setStep(s => Math.max(s - 1, 0))
-  }
+  function nextStep() { setStep(s => Math.min(s + 1, messages.length - 1)) }
+  function prevStep() { setStep(s => Math.max(s - 1, 0)) }
 
   async function shareFinal() {
     const url = window.location.href
     const text = 'Смотри — это для тебя 💖'
     if (navigator.share) {
-      try { await navigator.share({ title: 'С Днём Валентина', text, url }) } catch (e) {}
+      try { await navigator.share({ title: 'С Днём Валентина', text, url }) } catch(e) {}
     } else {
-      try { await navigator.clipboard.writeText(url); alert('Ссылка скопирована') } 
-      catch (e) { alert('Не получилось скопировать ссылку') }
+      try { await navigator.clipboard.writeText(url); alert('Ссылка скопирована') }
+      catch(e) { alert('Не получилось скопировать ссылку') }
     }
   }
 
@@ -52,10 +46,10 @@ export default function LoveStepsApp() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 relative" style={{ background: 'linear-gradient(180deg,#fff6fb,#ffeef3)' }}>
-      {/* Размытый фон */}
-      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+      {/* Размытый фон, декоративный */}
+      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm pointer-events-none"></div>
 
-      {/* Основной контент поверх blur */}
+      {/* Контент поверх непрозрачного фона */}
       <div className="relative w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden bg-white border border-pink-200">
         <header className="py-8 text-center px-6">
           <div className="text-3xl font-cursive" style={{ fontFamily: '"Great Vibes", cursive' }}>
@@ -97,7 +91,6 @@ export default function LoveStepsApp() {
 
             <div className="mt-6 w-full flex justify-between items-center gap-3">
               <button onClick={prevStep} className="px-4 py-2 rounded-lg border hover:bg-white/90" disabled={step === 0}>Назад</button>
-
               {step < messages.length - 1 ? (
                 <button onClick={nextStep} className="px-6 py-3 rounded-lg bg-pink-600 text-white shadow">Далее 💌</button>
               ) : (
@@ -141,9 +134,7 @@ function FinalHearts(){
   const hearts = Array.from({ length: 12 }).map((_, i) => ({ id: i }))
   return (
     <div aria-hidden>
-      {hearts.map(h => (
-        <FloatingHeart key={h.id} index={h.id} />
-      ))}
+      {hearts.map(h => <FloatingHeart key={h.id} index={h.id} />)}
     </div>
   )
 }
