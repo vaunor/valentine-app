@@ -1,5 +1,5 @@
 // src/LoveStepsApp.jsx
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 const FINAL_IMAGE_PUBLIC_PATH = '/final.jpg'
 
@@ -17,9 +17,6 @@ const messages = [
 
 export default function LoveStepsApp() {
   const [step, setStep] = useState(0)
-  const [animateKey, setAnimateKey] = useState(0)
-
-  useEffect(() => setAnimateKey(k => k + 1), [step])
 
   function nextStep() { setStep(s => Math.min(s + 1, messages.length - 1)) }
   function prevStep() { setStep(s => Math.max(s - 1, 0)) }
@@ -45,12 +42,9 @@ export default function LoveStepsApp() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 relative" style={{ background: 'linear-gradient(180deg,#fff6fb,#ffeef3)' }}>
-      {/* Декоративный размытый фон */}
-      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm pointer-events-none"></div>
-
-      {/* Контент на непрозрачном белом фоне */}
-      <div className="relative w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden bg-white border border-pink-200">
+    <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'linear-gradient(180deg,#fff6fb,#ffeef3)' }}>
+      {/* Основной непрозрачный контейнер */}
+      <div className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-pink-200">
         <header className="py-8 text-center px-6">
           <div className="text-3xl font-cursive" style={{ fontFamily: '"Great Vibes", cursive' }}>
             <span style={{ fontSize: 34 }}>❤️</span>
@@ -63,10 +57,10 @@ export default function LoveStepsApp() {
         </header>
 
         <main className="px-6 pb-8">
-          <div className="relative flex flex-col items-center">
-            <div key={animateKey} className="w-full bg-white rounded-2xl p-8 transition-transform duration-500 ease-in-out transform hover:scale-[1.01]">
+          <div className="flex flex-col items-center">
+            <div className="w-full bg-white rounded-2xl p-8 transition-transform duration-500 ease-in-out transform hover:scale-[1.01]">
               {step < messages.length - 1 ? (
-                <div className="text-center inline-block bg-white p-4 rounded-xl">
+                <div className="text-center bg-white p-4 rounded-xl">
                   <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-rose-800 mb-4" style={{ minHeight: 80 }}>
                     {messages[step]}
                   </div>
@@ -90,7 +84,7 @@ export default function LoveStepsApp() {
             </div>
 
             <div className="mt-6 w-full flex justify-between items-center gap-3">
-              <button onClick={prevStep} className="px-4 py-2 rounded-lg border hover:bg-white/90" disabled={step === 0}>Назад</button>
+              <button onClick={prevStep} className="px-4 py-2 rounded-lg border hover:bg-gray-100" disabled={step === 0}>Назад</button>
               {step < messages.length - 1 ? (
                 <button onClick={nextStep} className="px-6 py-3 rounded-lg bg-pink-600 text-white shadow">Далее 💌</button>
               ) : (
